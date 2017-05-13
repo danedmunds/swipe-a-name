@@ -1,13 +1,9 @@
 .boy {
-  background: #d3e5ff;
+  background:linear-gradient(to bottom, #40b3ff, #0072ff)
 }
 
 .girl {
-	background: #ffc6d4;
-}
-
-.side {
-  vertical-align: middle;
+	background:linear-gradient(to bottom, #ff8cb1, #f92862)
 }
 
 .circle {
@@ -21,4 +17,5 @@
 
   font-size: 30pt;
   font-family: Baloo, cursive;
+  color: white;
 }
