@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('SwypeANameApp', ['auth0.lock', 'angular-jwt', 'ui.router'])
+    .module('SwypeANameApp', ['ngMaterial', 'auth0.lock', 'angular-jwt', 'ui.router'])
     .config(config);
 
   function config($stateProvider, lockProvider, $urlRouterProvider) {

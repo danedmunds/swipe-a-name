@@ -1,0 +1,39 @@
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <h2>
+      <i class="material-icons">touch_app</i>
+    </h2>
+    <span style="font-family: 'Indie Flower';" class="md-title">
+      &nbsp;Swype-a-Name
+      <!-- <div ng-if="!!breadcrumb">{{breadcrumb}}</div> -->
+    </span>
+    <h2>
+      <i class="material-icons">pregnant_woman</i>
+    </h2>
+
+    <span flex></span>
+
+    <!-- Drop down menu for mobile -->
+    <md-menu>
+      <md-button class="menu" ng-click="$mdMenu.open($event)">
+        <md-icon><i class="material-icons">menu</i></md-icon>
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item>
+          <md-button
+            aria-label="Home"
+            ui-sref="home">
+            Home
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button
+            aria-label="Login"
+            ng-click="toolbar.authService.login()">
+            Login
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+  </div>
+</md-toolbar>
