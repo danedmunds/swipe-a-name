@@ -1,0 +1,24 @@
+.boy {
+  background: #d3e5ff;
+}
+
+.girl {
+	background: #ffc6d4;
+}
+
+.side {
+  vertical-align: middle;
+}
+
+.circle {
+	-moz-border-radius: 150px;
+	-webkit-border-radius: 150px;
+	border-radius: 150px;
+  text-align: center;
+  position: relative;
+  height: 300px;
+  width: 300px;
+
+  font-size: 30pt;
+  font-family: Baloo, cursive;
+}

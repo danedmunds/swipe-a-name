@@ -6,7 +6,13 @@
     .module('SwypeANameApp', ['ngMaterial', 'auth0.lock', 'angular-jwt', 'ui.router'])
     .config(config);
 
-  function config($stateProvider, lockProvider, $urlRouterProvider) {
+  function config($stateProvider, lockProvider, $urlRouterProvider, $mdThemingProvider) {
+    $mdThemingProvider.theme('default')
+      .primaryPalette('pink');
+
+    // Enable browser color
+    $mdThemingProvider.enableBrowserColor();
+
     $stateProvider
       .state('home', {
         url: '/home',
@@ -14,10 +20,10 @@
         templateUrl: 'components/home/home.tpl.html',
         controllerAs: 'vm'
       })
-      .state('login', {
-        url: '/login',
-        controller: 'LoginController',
-        templateUrl: 'components/login/login.tpl.html',
+      .state('name', {
+        url: '/name',
+        controller: 'NameController',
+        templateUrl: 'components/name/name.tpl.html',
         controllerAs: 'vm'
       });
 

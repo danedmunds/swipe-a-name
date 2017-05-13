@@ -1,0 +1,22 @@
+<md-content
+  md-swipe-left="toss()"
+  md-swipe-right="keep()"
+  style="margin-top: 50px"
+  >
+  <!-- <div ng-if="isAuthenticated"> -->
+  <div flex layout="row" layout-align="center center">
+    <div class="circle boy" layout="row" layout-align="center center">
+      <p>Daniel</p>
+    </div>
+  </div>
+  <div layout="row" layout-align="center center">
+    <md-button class="md-fab md-primary" aria-label="Toss" ng-click="toss()">
+        <i class="material-icons">delete</i>
+    </md-button>
+    <span flex></span>
+    <md-button class="md-fab md-primary" aria-label="Keep" ng-click="keep()">
+      <i class="material-icons">favorite</i>
+    </md-button>
+  </div>
+  <!-- </div> -->
+</md-content>
