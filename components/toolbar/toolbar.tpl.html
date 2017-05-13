@@ -7,28 +7,8 @@
       &nbsp;Swipe-a-Name
     </span>
     <span flex></span>
-
-    <!-- Drop down menu for mobile -->
-    <md-menu>
-      <md-button class="menu" ng-click="$mdMenu.open($event)">
-        <md-icon><i class="material-icons">menu</i></md-icon>
-      </md-button>
-      <md-menu-content width="4">
-        <md-menu-item>
-          <md-button
-            aria-label="Home"
-            ui-sref="home">
-            Home
-          </md-button>
-        </md-menu-item>
-        <md-menu-item>
-          <md-button
-            aria-label="Login"
-            ng-click="toolbar.authService.login()">
-            Login
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
+    <md-button class="md-icon-button" ng-if="isAuthenticated" aria-label="Logout" ng-click="toolbar.authService.logout()">
+      <i class="material-icons">directions_run</i>
+    </md-button>
   </div>
 </md-toolbar>

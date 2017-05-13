@@ -14,12 +14,6 @@
     $mdThemingProvider.enableBrowserColor();
 
     $stateProvider
-      .state('home', {
-        url: '/home',
-        controller: 'HomeController',
-        templateUrl: 'components/home/home.tpl.html',
-        controllerAs: 'vm'
-      })
       .state('name', {
         url: '/name',
         controller: 'NameController',
@@ -34,17 +28,13 @@
         _idTokenVerification: false,
         allowSignUp: false,
         allowedConnections: ['google-oauth2'],
-        theme: {
-          primaryColor: '#ff4081',
-          logo: 'https://logos.keycdn.com/keycdn-icon.png'
-        },
         languageDictionary: {
           title: "Log in"
         }
       }
     });
 
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/name');
   }
 
 

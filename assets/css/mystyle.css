@@ -6,6 +6,22 @@
 	background:linear-gradient(to bottom, #ff8cb1, #f92862)
 }
 
+div#loginLock i#locked {
+  display: inline;
+}
+
+div#loginLock:hover i#locked {
+  display: none;
+}
+
+div#loginLock i#unlocked {
+  display: none;
+}
+
+div#loginLock:hover i#unlocked {
+  display: inline;
+}
+
 .circle {
 	-moz-border-radius: 150px;
 	-webkit-border-radius: 150px;

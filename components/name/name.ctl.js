@@ -5,8 +5,9 @@
     .module('SwypeANameApp')
     .controller('NameController', NameController);
 
-  function NameController($scope) {
+  function NameController($scope, authService) {
     var vm = this;
+    vm.authService = authService;
 
     vm.data = {
       name: "Daniel",
