@@ -31,7 +31,16 @@
       clientID: 'J45whj0LyPxZv36xXBjDWVitpdjqclB5',
       domain: 'danedmunds.auth0.com',
       options: {
-        _idTokenVerification: false
+        _idTokenVerification: false,
+        allowSignUp: false,
+        allowedConnections: ['google-oauth2'],
+        theme: {
+          primaryColor: '#ff4081',
+          logo: 'https://logos.keycdn.com/keycdn-icon.png'
+        },
+        languageDictionary: {
+          title: "Log in"
+        }
       }
     });
 
