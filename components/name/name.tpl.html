@@ -5,8 +5,8 @@
   >
   <!-- <div ng-if="isAuthenticated"> -->
   <div flex layout="row" layout-align="center center">
-    <div class="circle boy" layout="row" layout-align="center center">
-      <p>Daniel</p>
+    <div ng-class="vm.data.sex === 'M' ? 'circle boy' : 'circle girl'" layout="row" layout-align="center center">
+      <p>{{vm.data.name}}</p>
     </div>
   </div>
   <div layout="row" layout-align="center center">

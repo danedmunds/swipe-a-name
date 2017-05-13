@@ -8,6 +8,11 @@
   function NameController($scope) {
     var vm = this;
 
+    vm.data = {
+      name: "Daniel",
+      sex: "M"
+    }
+
     $scope.toss = function(ev) {
       // bad
       alert('You swiped left!!');
