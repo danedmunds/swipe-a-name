@@ -6,7 +6,7 @@
     .module('SwypeANameApp', ['ngMaterial', 'auth0.lock', 'angular-jwt', 'ui.router'])
     .config(config);
 
-  function config($stateProvider, lockProvider, $urlRouterProvider, $mdThemingProvider) {
+  function config($stateProvider, lockProvider, $urlRouterProvider, $mdThemingProvider, jwtOptionsProvider) {
     $mdThemingProvider.theme('default')
       .primaryPalette('pink');
 
@@ -31,6 +31,13 @@
         languageDictionary: {
           title: "Log in"
         }
+      }
+    });
+
+    // Configuration for angular-jwt
+    jwtOptionsProvider.config({
+      tokenGetter: function () {
+        return localStorage.getItem('id_token');
       }
     });
 
