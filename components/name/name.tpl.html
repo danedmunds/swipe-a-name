@@ -30,7 +30,7 @@
     >
     <div layout="row" flex>
       <span flex></span>
-      <md-menu>
+      <md-menu md-position-mode="target-left target" md-offset="0 42">
         <md-button class="md-fab menu" ng-click="$mdMenu.open($event)">
           <md-icon><i class="material-icons">menu</i></md-icon>
         </md-button>
@@ -38,6 +38,7 @@
           <md-menu-item>
             <md-button
               aria-label="Home"
+              ng-click="$mdMenu.hide()"
               href="http://rhiever.github.io/baby-name-explorer/index.html?BabyName={{current.name}}"
               target="_blank">
               Popularity
