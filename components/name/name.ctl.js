@@ -9,19 +9,51 @@
     var vm = this;
     vm.authService = authService;
 
-    vm.data = {
-      name: "Daniel",
-      sex: "M"
+    var names = getNamesBatch();
+    var index = 0;
+    
+    $scope.current = names[index]
+
+    $scope.toss = function(name) {
+      sendRating(name, 'toss');
+      getNext();
+    };
+
+    $scope.keep = function(name) {
+      sendRating(name, 'keep');
+      getNext();
+    };
+
+    function getNamesBatch() {
+      return [
+        {
+          name: "Daniel",
+          sex: "M"
+        },
+        {
+          name: "Amanda",
+          sex: "F"
+        },
+        {
+          name: "Sebastian",
+          sex: "M"
+        },
+        {
+          name: "Renee",
+          sex: "F"
+        }
+      ];
     }
 
-    $scope.toss = function(ev) {
-      // bad
-      alert('You swiped left!!');
-    };
+    function getNext() {
+      index++;
+      if (index < names.length) {
+        $scope.current = names[index]
+      }
+    }
 
-    $scope.keep = function(ev) {
-      // good
-      alert('You swiped right!!');
-    };
+    function sendRating(name, rating) {
+
+    }
   }
 })();

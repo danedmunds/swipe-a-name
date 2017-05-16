@@ -24,21 +24,39 @@
   </div>
   <div
     ng-if="isAuthenticated"
-    md-swipe-left="toss()"
-    md-swipe-right="keep()"
+    md-swipe-left="toss(current)"
+    md-swipe-right="keep(current)"
     style="margin-top: 50px"
     >
+    <div layout="row" flex>
+      <span flex></span>
+      <md-menu>
+        <md-button class="md-fab menu" ng-click="$mdMenu.open($event)">
+          <md-icon><i class="material-icons">menu</i></md-icon>
+        </md-button>
+        <md-menu-content width="2">
+          <md-menu-item>
+            <md-button
+              aria-label="Home"
+              href="http://rhiever.github.io/baby-name-explorer/index.html?BabyName={{current.name}}"
+              target="_blank">
+              Popularity
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </div>
     <div flex layout="row" layout-align="center center">
-      <div ng-class="vm.data.sex === 'M' ? 'circle boy' : 'circle girl'" layout="row" layout-align="center center">
-        <p>{{vm.data.name}}</p>
+      <div ng-class="current.sex === 'M' ? 'circle boy' : 'circle girl'" layout="row" layout-align="center center">
+        <p>{{current.name}}</p>
       </div>
     </div>
     <div layout="row" layout-align="center center">
-      <md-button class="md-fab md-primary" aria-label="Toss" ng-click="toss()">
+      <md-button class="md-fab" aria-label="Toss" ng-click="toss()">
           <i class="material-icons">delete</i>
       </md-button>
       <span flex></span>
-      <md-button class="md-fab md-primary" aria-label="Keep" ng-click="keep()">
+      <md-button class="md-fab" aria-label="Keep" ng-click="keep()">
         <i class="material-icons">favorite</i>
       </md-button>
     </div>
