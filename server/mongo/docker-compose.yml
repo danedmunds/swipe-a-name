@@ -1,0 +1,8 @@
+version: "2"
+
+services:
+  mongo:
+      image: mongo:3.2
+      container_name: swipe-a-name-mongo
+      ports:
+        - "27017:27017"
