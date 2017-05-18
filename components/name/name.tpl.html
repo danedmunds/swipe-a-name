@@ -31,17 +31,26 @@
     <div layout="row" flex>
       <span flex></span>
       <md-menu md-position-mode="target-left target" md-offset="0 42">
-        <md-button class="md-fab menu" ng-click="$mdMenu.open($event)">
+        <md-button class="md-fab" ng-click="$mdMenu.open($event)">
           <md-icon><i class="material-icons">menu</i></md-icon>
         </md-button>
         <md-menu-content width="2">
           <md-menu-item>
             <md-button
-              aria-label="Home"
+              aria-label="Popularity"
               ng-click="$mdMenu.hide()"
               href="http://rhiever.github.io/baby-name-explorer/index.html?BabyName={{current.name}}"
               target="_blank">
               Popularity
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button
+              aria-label="Meaning"
+              ng-click="$mdMenu.hide()"
+              href="https://www.behindthename.com/name/{{current.name}}"
+              target="_blank">
+              Meaning
             </md-button>
           </md-menu-item>
         </md-menu-content>
