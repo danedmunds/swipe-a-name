@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+var mongoosePaginate = require('mongoose-paginate')
 const _ = require('lodash')
 
 class Name {
@@ -12,15 +13,17 @@ class Name {
 
   createSchema() {
     let schema = new mongoose.Schema({
-      name: { type: String, required: true },
-      sex: { type: String, enum: ['M', 'F']}
+      name: { type: String, required: true, index: true },
+      sex: { type: String, required: true, enum: ['M', 'F']}
     })
 
     schema.set('toJSON', {
       transform: doc => {
-        return _.pick(doc, Name.PROPERTIES)
+        return _.pick(doc, Name.PUBLIC_PROPERTIES)
       }
     })
+
+    schema.plugin(mongoosePaginate)
 
     return schema
   }
