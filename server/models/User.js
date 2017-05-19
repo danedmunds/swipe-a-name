@@ -13,7 +13,8 @@ class User {
   createSchema() {
     let ratingSchema = new mongoose.Schema({
       nameRecord: { type: Schema.Types.ObjectId, ref: 'Name' }
-      rating: { type: String, enum: ['keep', 'toss']}
+      date: { type: Date, default: Date.now },
+      rating: { type: String, enum: ['keep', 'toss'] }
     })
 
     let schema = new mongoose.Schema({
