@@ -25,7 +25,7 @@ class User {
 
     schema.set('toJSON', {
       transform: doc => {
-        return _.pick(doc, User.PROPERTIES)
+        return _.pick(doc, User.PUBLIC_PROPERTIES)
       }
     })
 
