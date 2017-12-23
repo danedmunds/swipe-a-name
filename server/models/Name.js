@@ -39,6 +39,12 @@ class Name {
        ]).exec()
     }
 
+    schema.statics.randomSample = function (limit, next) {
+      return this.aggregate(
+        { $sample: { size: limit } }
+     ).exec(next)
+    }
+
     schema.plugin(mongoosePaginate)
 
     return schema

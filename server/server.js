@@ -6,6 +6,7 @@ const expressWinston = require('express-winston')
 const mongoose = require('mongoose')
 
 const NamesRouter = require('./routes/names')
+const UsersRouter = require('./routes/users')
 
 app = express()
 
@@ -19,23 +20,21 @@ app.use(expressWinston.logger({
   ignoreRoute: function (req, res) { return false; }
 }));
 
-// names aren't secure
+//TODO temporary
+app.use((req, res, next) => {
+  req.user = {
+    username: 'blahblah'
+  }
+  next()
+})
+
 let namesRouter = new NamesRouter()
 namesRouter.initRoutes()
 app.use('/api/v1/names', namesRouter.router)
 
-// secure endpoints below
-app.use(jwt({
-  secret: jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `https://danedmunds.auth0.com/.well-known/jwks.json`
-  }),
-  audience: 'J45whj0LyPxZv36xXBjDWVitpdjqclB5',
-  issuer: 'https://danedmunds.auth0.com/',
-  algorithms: [ 'RS256' ]
-}));
+let usersRouter = new UsersRouter()
+usersRouter.initRoutes()
+app.use('/api/v1/users', usersRouter.router)
 
 let port = 3000
 mongoose.connect('mongodb://localhost/swipe-a-name')

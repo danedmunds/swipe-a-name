@@ -3,6 +3,7 @@ const Name = require('../models/Name')
 const _ = require('lodash')
 const RatingTodo = new (require('../models/RatingTodo'))()
 const NameModel = new Name().createModel()
+const querystring = require('querystring')
 
 class NamesRouter {
 
@@ -16,8 +17,7 @@ class NamesRouter {
   }
 
   getNames (req, res, next) {
-    // TODO
-    let username = 'blahblah'
+    let username = req.user.username
 
     let offset = Number(req.query.offset || 0)
     let limit = Number(req.query.limit || 10)
@@ -42,31 +42,36 @@ class NamesRouter {
     switch (ratedStatus) {
       case 'ONLY_RATED':
       case 'ONLY_UNRATED':
-        // TODO split these
+        // TODO split these, ignore only rated for now
         model = RatingTodo.createModel(username)
         break
       default:
         model = NameModel
     }
 
-    model.paginate(query, { offset, limit, lean: true}, function(err, result) {
+    if (req.query.sample === 'true') {
+      return model.randomSample(limit, (err, result) => {
+        if (err) {
+          return next(err)
+        }
+        res.send(result.map(this._serialize))
+      })
+    }
+
+    model.paginate(query, { offset, limit, lean: true}, (err, result) => {
       if (err) {
         return next(err)
       }
 
       let baseUrl = req.protocol + '://' + req.get('host')
-      let queryString = `${sex ? 'sex=' + sex : ''}`
+      let queryString = querystring.stringify(_.pick(req.query, ['sex', 'rated']))
       if (queryString != '') {
         queryString = queryString + '&'
       }
       let linkStart = `${baseUrl}/api/v1/names?${queryString}`
 
       res.send({
-        data: result.docs.map((item) => {
-          let toReturn = _.cloneDeep(item)
-          toReturn.id = toReturn.nameId || toReturn._id
-          return _.pick(toReturn, Name.PUBLIC_PROPERTIES)
-        }),
+        data: result.docs.map(this._serialize),
         links: {
           self: `${linkStart}offset=${offset}&limit=${limit}`,
           next: `${linkStart}offset=${offset + limit}&limit=${limit}`,
@@ -76,6 +81,13 @@ class NamesRouter {
         }
       })
     })
+  }
+
+  _serialize (item) {
+    item = item.toObject ? item.toObject() : item
+    let toReturn = _.cloneDeep(item)
+    toReturn.id = toReturn.nameId || toReturn._id
+    return _.pick(toReturn, Name.PUBLIC_PROPERTIES)
   }
 }
 

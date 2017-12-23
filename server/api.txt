@@ -9,5 +9,5 @@
   rated=false
     those i haven't rated
 
-  random=true
+  sample=true
     random sample, no paging
