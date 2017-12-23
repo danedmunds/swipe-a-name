@@ -60,7 +60,9 @@ class NamesRouter {
         if (err) {
           return next(err)
         }
-        res.send(result.map(this._serialize))
+        res.send({
+          data: result.map(this._serialize)
+        })
       })
     }
 

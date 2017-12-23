@@ -5,12 +5,15 @@ const winston = require('winston')
 const expressWinston = require('express-winston')
 const mongoose = require('mongoose')
 const bodyparser = require('body-parser')
+const cors = require('cors')
 
 const NamesRouter = require('./routes/names')
 const UsersRouter = require('./routes/users')
 const RatingsRouter = require('./routes/ratings')
 
 app = express()
+
+app.use(cors())
 
 app.use(expressWinston.logger({
   transports: [

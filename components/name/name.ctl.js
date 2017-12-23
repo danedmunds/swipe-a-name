@@ -5,55 +5,56 @@
     .module('SwypeANameApp')
     .controller('NameController', NameController);
 
-  function NameController($scope, authService) {
+  function NameController($scope, authService, $http, $timeout) {
     var vm = this;
     vm.authService = authService;
 
-    var names = getNamesBatch();
-    var index = 0;
-    
-    $scope.current = names[index]
+    var names = [];
 
-    $scope.toss = function(name) {
-      sendRating(name, 'toss');
-      getNext();
+    getNamesBatch().then(function success (res) {
+      $timeout(function () {
+        names = res.data.data
+        $scope.current = getNext()
+      }, 0)
+    }).catch(function error (err) {
+      console.log(err)
+    });
+
+    $scope.toss = function() {
+      sendRating($scope.current, 'toss');
+      $scope.current = getNext()
     };
 
-    $scope.keep = function(name) {
-      sendRating(name, 'keep');
-      getNext();
+    $scope.keep = function() {
+      sendRating($scope.current, 'keep');
+      $scope.current = getNext()
     };
 
     function getNamesBatch() {
-      return [
-        {
-          name: "Daniel",
-          sex: "M"
-        },
-        {
-          name: "Amanda",
-          sex: "F"
-        },
-        {
-          name: "Sebastian",
-          sex: "M"
-        },
-        {
-          name: "Renee",
-          sex: "F"
-        }
-      ];
+      return $http.get('http://localhost:3000/api/v1/names?rated=false&sample=true&limit=50');
     }
 
     function getNext() {
-      index++;
-      if (index < names.length) {
-        $scope.current = names[index]
+      if (names.length < 15) {
+        getNamesBatch().then(function success (res) {
+          names = res.data.data.concat(names)
+        }).catch(function (err) {
+          console.log(err)
+        })
       }
+
+      return names.pop()
     }
 
     function sendRating(name, rating) {
+      return $http.post('http://localhost:3000/api/v1/ratings', {
+        nameId: name.id,
+        rating: rating
+      }).then(function success () {
 
+      }).catch(function error () {
+
+      })
     }
   }
 })();
