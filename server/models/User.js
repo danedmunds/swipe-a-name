@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 const _ = require('lodash')
 
 class User {
@@ -11,16 +12,10 @@ class User {
   }
 
   createSchema() {
-    let ratingSchema = new mongoose.Schema({
-      nameRecord: { type: Schema.Types.ObjectId, ref: 'Name' }
-      date: { type: Date, default: Date.now },
-      rating: { type: String, enum: ['keep', 'toss'] }
-    })
-
-    let schema = new mongoose.Schema({
-      name: { type: String, required: true },
-      email: { type: String, required: true },
-      ratings: [ ratingSchema ]
+    let schema = new Schema({
+      userId: { type: String, required: true, unique: true },
+      username: { type: String, required: true, unique: true },
+      email: { type: String, require: true, unique: true}
     })
 
     schema.set('toJSON', {
@@ -34,6 +29,6 @@ class User {
 }
 
 User.MODEL_NAME = 'User'
-User.PUBLIC_PROPERTIES = ['id', 'name', 'email', 'ratings']
+User.PUBLIC_PROPERTIES = ['id', 'name', 'email']
 
 module.exports = User
