@@ -23,6 +23,22 @@ class Name {
       }
     })
 
+    schema.statics.prepareRatingTodoTableForUser = function (username) {
+      return this.aggregate([
+        {
+          $project: {
+            _id: 0,
+            name: 1,
+            sex: 1,
+            nameId: '$_id'
+          }
+        },
+        {
+          $out: `names_todo_${username}`
+        }
+       ]).exec()
+    }
+
     schema.plugin(mongoosePaginate)
 
     return schema

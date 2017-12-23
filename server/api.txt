@@ -1,0 +1,13 @@
+/names
+  all names
+
+  sex
+    filter to only this sex
+
+  rated=true
+    those that i've rated
+  rated=false
+    those i haven't rated
+
+  random=true
+    random sample, no paging

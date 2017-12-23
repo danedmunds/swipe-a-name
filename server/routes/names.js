@@ -1,5 +1,7 @@
 const express = require('express')
 const Name = require('../models/Name')
+const _ = require('lodash')
+const RatingTodo = new (require('../models/RatingTodo'))()
 const NameModel = new Name().createModel()
 
 class NamesRouter {
@@ -14,6 +16,9 @@ class NamesRouter {
   }
 
   getNames (req, res, next) {
+    // TODO
+    let username = 'blahblah'
+
     let offset = Number(req.query.offset || 0)
     let limit = Number(req.query.limit || 10)
 
@@ -26,7 +31,25 @@ class NamesRouter {
       query.sex = sex
     }
 
-    NameModel.paginate(query, { offset, limit}, function(err, result) {
+    let ratedStatus = 'ALL'
+    if (req.query.rated === 'true') {
+      ratedStatus = 'ONLY_RATED'
+    } else if (req.query.rated === 'false') {
+      ratedStatus = 'ONLY_UNRATED'
+    }
+
+    let model
+    switch (ratedStatus) {
+      case 'ONLY_RATED':
+      case 'ONLY_UNRATED':
+        // TODO split these
+        model = RatingTodo.createModel(username)
+        break
+      default:
+        model = NameModel
+    }
+
+    model.paginate(query, { offset, limit, lean: true}, function(err, result) {
       if (err) {
         return next(err)
       }
@@ -39,7 +62,11 @@ class NamesRouter {
       let linkStart = `${baseUrl}/api/v1/names?${queryString}`
 
       res.send({
-        data: result.docs,
+        data: result.docs.map((item) => {
+          let toReturn = _.cloneDeep(item)
+          toReturn.id = toReturn.nameId || toReturn._id
+          return _.pick(toReturn, Name.PUBLIC_PROPERTIES)
+        }),
         links: {
           self: `${linkStart}offset=${offset}&limit=${limit}`,
           next: `${linkStart}offset=${offset + limit}&limit=${limit}`,

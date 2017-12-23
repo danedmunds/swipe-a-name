@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const User = require('../models/User')
 const UserModel = new User().createModel()
+const Name = require('../models/Name')
+const NameModel = new Name().createModel()
 
 const readline = require('readline');
 const fs = require('fs');
@@ -15,6 +17,7 @@ db.once('open', async () => {
       username: 'blahblah',
       email: 'blah@yopmail.com'
     }).save()
+    await NameModel.prepareRatingTodoTableForUser(user.username)
   } catch (err) {
     console.log(err)
   }
