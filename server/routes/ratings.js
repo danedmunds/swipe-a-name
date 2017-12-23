@@ -127,11 +127,10 @@ class RatingsRouter {
   }
 
   _serialize (item) {
-    return item
-    // item = item.toObject ? item.toObject() : item
-    // let toReturn = _.cloneDeep(item)
-    // toReturn.id = toReturn.nameId || toReturn._id
-    // return _.pick(toReturn, Name.PUBLIC_PROPERTIES)
+    item = item.toObject ? item.toObject() : item
+    let toReturn = _.cloneDeep(item)
+    toReturn.id = toReturn.nameId || toReturn._id
+    return _.pick(toReturn, Rating.PUBLIC_PROPERTIES)
   }
 }
 
