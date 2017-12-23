@@ -11,3 +11,10 @@
 
   sample=true
     random sample, no paging
+
+/ratings
+  POST
+    {
+      nameId,
+      rating
+    }

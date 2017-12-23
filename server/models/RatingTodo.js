@@ -31,6 +31,12 @@ class RatingTodo {
      ).exec(next)
     }
 
+    schema.statics.deleteByNameId = function (nameId) {
+      return this.findOneAndRemove({
+        nameId
+      }).exec()
+    }
+
     schema.plugin(mongoosePaginate)
 
     return schema
