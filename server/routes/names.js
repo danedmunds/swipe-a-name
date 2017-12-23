@@ -1,9 +1,13 @@
 const express = require('express')
 const Name = require('../models/Name')
+const Rating = require('../models/Rating')
 const _ = require('lodash')
 const RatingTodo = new (require('../models/RatingTodo'))()
 const NameModel = new Name().createModel()
+const RatingModel = new Rating().createModel()
 const querystring = require('querystring')
+const mongoose = require('mongoose')
+const ObjectId = mongoose.Types.ObjectId
 
 class NamesRouter {
 
@@ -41,8 +45,10 @@ class NamesRouter {
     let model
     switch (ratedStatus) {
       case 'ONLY_RATED':
+        model = RatingModel
+        query.userId = new ObjectId(req.user.id)
+        break
       case 'ONLY_UNRATED':
-        // TODO split these, ignore only rated for now
         model = RatingTodo.createModel(username)
         break
       default:
