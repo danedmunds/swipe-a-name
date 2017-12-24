@@ -1,5 +1,4 @@
 const express = require('express')
-const co = require('co')
 const User = require('../models/User')
 const Name = require('../models/Name')
 const UserModel = new User().createModel()
