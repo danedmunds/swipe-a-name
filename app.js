@@ -6,7 +6,7 @@
     .module('SwypeANameApp', ['ngMaterial', 'auth0.lock', 'angular-jwt', 'ui.router', 'nzToggle'])
     .config(config);
 
-  function config($stateProvider, lockProvider, $urlRouterProvider, $mdThemingProvider, jwtOptionsProvider) {
+  function config($stateProvider, lockProvider, $urlRouterProvider, $mdThemingProvider, jwtOptionsProvider, $httpProvider) {
     $mdThemingProvider.theme('default')
       .primaryPalette('pink');
 
@@ -36,10 +36,14 @@
 
     // Configuration for angular-jwt
     jwtOptionsProvider.config({
+      whiteListedDomains: [
+        'localhost'
+      ],
       tokenGetter: function () {
         return localStorage.getItem('id_token');
       }
     });
+    $httpProvider.interceptors.push('jwtInterceptor');
 
     $urlRouterProvider.otherwise('/name');
   }

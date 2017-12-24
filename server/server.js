@@ -1,11 +1,12 @@
 const express = require('express')
 const jwt = require('express-jwt')
-const jwksRsa = require('jwks-rsa')
+const jwks = require('jwks-rsa')
 const winston = require('winston')
 const expressWinston = require('express-winston')
 const mongoose = require('mongoose')
 const bodyparser = require('body-parser')
 const cors = require('cors')
+const attachUser = require('./middleware/attach_user')
 
 const NamesRouter = require('./routes/names')
 const UsersRouter = require('./routes/users')
@@ -25,14 +26,18 @@ app.use(expressWinston.logger({
   ignoreRoute: function (req, res) { return false; }
 }));
 
-//TODO temporary
-app.use((req, res, next) => {
-  req.user = {
-    username: 'blahblah',
-    id: '5a3eb7dd4a6bcf4646927c68'
-  }
-  next()
-})
+app.use(jwt({
+  secret: jwks.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: "https://danedmunds.auth0.com/.well-known/jwks.json"
+  }),
+  audience: 'J45whj0LyPxZv36xXBjDWVitpdjqclB5',
+  issuer: "https://danedmunds.auth0.com/",
+  algorithms: ['RS256']
+}))
+app.use(attachUser())
 
 app.use(bodyparser.json())
 

@@ -13,8 +13,7 @@ class User {
 
   createSchema() {
     let schema = new Schema({
-      userId: { type: String, required: true, unique: true },
-      username: { type: String, required: true, unique: true },
+      userId: { type: String, required: true, unique: true, index: true },
       email: { type: String, require: true, unique: true}
     })
 

@@ -5,11 +5,11 @@ const mongoosePaginate = require('mongoose-paginate')
 
 class RatingTodo {
 
-  createModel (username) {
+  createModel (id) {
     if (mongoose.models[RatingTodo.MODEL_NAME]) {
       return mongoose.model(RatingTodo.MODEL_NAME)
     }
-    return mongoose.model(RatingTodo.MODEL_NAME, this.createSchema(), `names_todo_${username}`)
+    return mongoose.model(RatingTodo.MODEL_NAME, this.createSchema(), `torank_${id}`)
   }
 
   createSchema() {

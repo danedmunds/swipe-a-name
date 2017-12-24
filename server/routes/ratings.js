@@ -80,13 +80,12 @@ class RatingsRouter {
       new: true
     }).exec()
 
-    await RatingTodo.createModel(req.user.username).deleteByNameId(nameId)
+    await RatingTodo.createModel(req.user.id).deleteByNameId(nameId)
 
     return res.send(result)
   }
 
   getRatings (req, res, next) {
-    let username = req.user.username
     let userId = req.user.id
 
     let offset = Number(req.query.offset || 0)

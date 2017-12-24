@@ -21,7 +21,7 @@ class NamesRouter {
   }
 
   getNames (req, res, next) {
-    let username = req.user.username
+    let user = req.user
 
     let offset = Number(req.query.offset || 0)
     let limit = Number(req.query.limit || 10)
@@ -49,7 +49,7 @@ class NamesRouter {
         query.userId = new ObjectId(req.user.id)
         break
       case 'ONLY_UNRATED':
-        model = RatingTodo.createModel(username)
+        model = RatingTodo.createModel(user.id)
         break
       default:
         model = NameModel
