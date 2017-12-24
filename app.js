@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('SwypeANameApp', ['ngMaterial', 'auth0.lock', 'angular-jwt', 'ui.router'])
+    .module('SwypeANameApp', ['ngMaterial', 'auth0.lock', 'angular-jwt', 'ui.router', 'nzToggle'])
     .config(config);
 
   function config($stateProvider, lockProvider, $urlRouterProvider, $mdThemingProvider, jwtOptionsProvider) {

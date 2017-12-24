@@ -5,9 +5,17 @@
     .module('SwypeANameApp')
     .controller('NameController', NameController);
 
-  function NameController($scope, authService, $http, $timeout) {
+  function NameController($scope, authService, $http, $timeout, $mdSidenav) {
     var vm = this;
     vm.authService = authService;
+
+    $scope.toggleLeft = buildToggler('left');
+
+    function buildToggler(componentId) {
+      return function() {
+        $mdSidenav(componentId).toggle();
+      };
+    }
 
     var names = [];
 

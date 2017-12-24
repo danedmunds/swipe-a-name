@@ -29,6 +29,31 @@
     style="margin-top: 50px"
     >
     <div layout="row" flex>
+      <md-sidenav 
+        class="md-sidenav-left"
+        md-component-id="left"
+        md-whiteframe="4">
+          <md-toolbar class="md-primary md-hue-1">
+            <h1 class="md-toolbar-tools"><i class="material-icons">settings</i>&nbsp;Settings</h1>
+          </md-toolbar>
+          <md-content layout-margin>
+              <!-- on-toggle="myFunction()" -->
+            <nz-toggle
+              tri-toggle
+              ng-model="myValue1"
+              val-false="'Boy Names'"
+              color-false="'#40b3ff'"
+              val-null="'Boy and Girl Names'"
+              color-null="'#cccccc'"
+              color-true="'#ff8cb1'"
+              val-true="'Girl Names'">
+            </nz-toggle>
+            {{myValue1}}
+        </md-content>
+      </md-sidenav>
+      <md-button class="md-fab" ng-click="toggleLeft()">
+        <md-icon><i class="material-icons">settings</i></md-icon>
+      </md-button>
       <span flex></span>
       <md-menu md-position-mode="target-left target" md-offset="0 42">
         <md-button class="md-fab" ng-click="$mdMenu.open($event)">
