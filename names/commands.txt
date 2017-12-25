@@ -1,0 +1,9 @@
+=== SHELL ===
+# collect data from all files adding year and saving to single file
+ls -1 raw | xargs -I '{}' ./blah.sh raw/{}
+
+=== MONGO ===
+mongoexport --db dan --collection totals --type csv --out totals.csv --fields _id.name,_id.sex,total
+mongoimport --fields year,name,sex,count --file all.csv --collection names --db dan --type csv
+
+mongoexport --db dan --collection new_names --type csv --out names.csv --fields name,sex

@@ -1,0 +1,66 @@
+// get counts for each name
+db.names.aggregate(
+  [
+    { 
+      $group: {
+        _id: { name: "$name", sex: "$sex" },
+        total: { $sum: "$count"}
+      }
+    },
+    {
+      $sort: {total: -1}
+    }, 
+    {
+      $out: 'totals'
+    }
+  ]
+)
+
+// don't consider records from 2000 on
+// name has to have...
+// - appeared in at least 5 years
+// - been used at least 200 times
+// - been used once before 1980
+db.names.aggregate(
+  [
+    {
+      $match: {
+        year: {
+          $lt: 2000
+        }
+      }
+    },
+    { 
+      $group: {
+        _id: { name: "$name", sex: "$sex" },
+        years:  { $push: "$year" },
+        total: { $sum: "$count"}
+      }
+    },
+    {
+      $match: {
+        'years.4': {
+          $exists: true
+        },
+        total: {
+          $gt: 199
+        },
+        years: {
+          $elemMatch: {
+            $lt: 1980
+          }
+        }
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        name: "$_id.name",
+        sex: "$_id.sex"
+      }
+    },
+    {
+      $out: 'new_names'
+    }
+  ]
+)
