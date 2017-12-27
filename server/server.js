@@ -59,8 +59,9 @@ let ratingsRouter = new RatingsRouter()
 ratingsRouter.initRoutes()
 app.use('/api/v1/ratings', ratingsRouter.router)
 
-let port = 3000
-mongoose.connect('mongodb://localhost/swipe-a-name')
+let port = process.env.PORT || 3000
+let connectionString = process.env.CONNECTIONSTRING || 'mongodb://localhost/swipe-a-name'
+mongoose.connect(connectionString)
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
