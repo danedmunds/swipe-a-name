@@ -6,9 +6,9 @@ services:
     restart: on-failure
     environment:
       - CONNECTIONSTRING=mongodb://mongo:27017/swipe
-      - PORT=3000
+      - PORT=3001
     ports:
-      - "80:3000"
+      - "3001:3001"
     depends_on:
       - mongo
   mongo:
