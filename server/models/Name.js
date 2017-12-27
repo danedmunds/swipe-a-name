@@ -23,7 +23,7 @@ class Name {
       }
     })
 
-    schema.statics.prepareRatingTodoTableForUser = function (username) {
+    schema.statics.prepareRatingTodoTableForUser = function (id) {
       return this.aggregate([
         {
           $project: {
@@ -34,7 +34,7 @@ class Name {
           }
         },
         {
-          $out: `names_todo_${username}`
+          $out: `torank_${id}`
         }
        ]).exec()
     }

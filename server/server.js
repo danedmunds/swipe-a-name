@@ -15,6 +15,7 @@ const RatingsRouter = require('./routes/ratings')
 app = express()
 
 app.use(cors())
+app.use(bodyparser.json())
 
 app.use(expressWinston.logger({
   transports: [
@@ -37,17 +38,22 @@ app.use(jwt({
   issuer: "https://danedmunds.auth0.com/",
   algorithms: ['RS256']
 }))
-app.use(attachUser())
-
-app.use(bodyparser.json())
-
-let namesRouter = new NamesRouter()
-namesRouter.initRoutes()
-app.use('/api/v1/names', namesRouter.router)
+app.use((req, res, next) => {
+  req.id_token_decoded = req.user
+  delete req.user
+  next()
+})
 
 let usersRouter = new UsersRouter()
 usersRouter.initRoutes()
 app.use('/api/v1/users', usersRouter.router)
+
+// Below this point requests are rejected if the token doesn't correspond to a user
+app.use(attachUser())
+
+let namesRouter = new NamesRouter()
+namesRouter.initRoutes()
+app.use('/api/v1/names', namesRouter.router)
 
 let ratingsRouter = new RatingsRouter()
 ratingsRouter.initRoutes()

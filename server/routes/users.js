@@ -1,4 +1,5 @@
 const express = require('express')
+const attachUser = require('../middleware/attach_user')
 const User = require('../models/User')
 const Name = require('../models/Name')
 const UserModel = new User().createModel()
@@ -12,42 +13,48 @@ class UsersRouter {
 
   initRoutes () {
     this.router.route('/')
-      .post(this.createUser.bind(this))
+      .post(
+        attachUser(true),
+        this.registerUser.bind(this)
+      )
     this.router.route('/:id')
-      .get(this.getUser.bind(this))
-    this.router.route('/:id/ratings')
-      .get(this.getRatings.bind(this))
-      .post(this.addRating.bind(this))
+      .get(
+        attachUser(),
+        this.getUser.bind(this)
+      )
   }
 
-  createUser (req, res, next) {
-    let user = new UserModel({
-      userId: '1234',
-      username: 'dan'
-    })
-    user.save()
-    .then((user) => {
-      NameModel.find().cursor()
-    }).catch((err) => {
-      next(err)
-    })
+  async registerUser (req, res, next) {
+    let id = req.id_token_decoded
+
+    let user
+    try {
+      user = new UserModel({
+        userId: id.sub,
+        email: id.email
+      }).save()
+    } catch (err) {
+      console.log(err)
+      return res.status(500).send({
+        message: 'Failed to create user'
+      })
+    }
+
+    try {
+      await NameModel.prepareRatingTodoTableForUser(user.id)
+    } catch (err) {
+      console.log(err)
+      return res.status(500).send({
+        message: 'Failed to setup names for new user'
+      })
+    }
+    
+    return res.status(200).send(user.toJSON())
   }
 
   getUser (req, res, next) {
-    res.sendStatus(501)
+    res.send(req.user.toJSON())
   }
-
-  getRatings (req, res, next) {
-
-  }
-
-  addRating (req, res, next) {
-    // TODO probably split to the |
-    let userId = req.user.id
-
-  }
-
-
 }
 
 module.exports = UsersRouter
