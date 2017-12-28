@@ -39,7 +39,7 @@
     };
 
     function getNamesBatch() {
-      return $http.get('http://localhost:3000/api/v1/names?rated=false&sample=true&limit=50');
+      return $http.get('/api/v1/names?rated=false&sample=true&limit=50');
     }
 
     function getNext() {
@@ -55,7 +55,7 @@
     }
 
     function sendRating(name, rating) {
-      return $http.post('http://localhost:3000/api/v1/ratings', {
+      return $http.post('/api/v1/ratings', {
         nameId: name.id,
         rating: rating
       }).then(function success () {

@@ -37,7 +37,7 @@
     // Configuration for angular-jwt
     jwtOptionsProvider.config({
       whiteListedDomains: [
-        'localhost'
+        'localhost', 'swipe.danedmunds.ca'
       ],
       tokenGetter: function () {
         return localStorage.getItem('id_token');

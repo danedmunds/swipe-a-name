@@ -1,0 +1,36 @@
+version: "2"
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - swipe
+    volumes:
+      - ./nginx:/etc/nginx/conf.d:ro
+      - swipe-www:/swipe-www:ro
+  swipe:
+    image: danedmunds/swipe:latest
+    container_name: swipe
+    hostname: swipe
+    restart: on-failure
+    environment:
+      - CONNECTIONSTRING=mongodb://mongo:27017/swipe
+      - PORT=3001
+    ports:
+      - "3001:3001"
+    volumes:
+      - swipe-www:/client
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:3.2
+    container_name: mongo
+    command: --smallfiles
+    volumes:
+      - db-volume:/data/db
+volumes:
+  db-volume:
+  swipe-www:
