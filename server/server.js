@@ -27,6 +27,18 @@ app.use(expressWinston.logger({
   ignoreRoute: function (req, res) { return false; }
 }));
 
+// In dev mode host the client at the root
+if (process.env.DEV === '1' || process.env.DEV === 'true') {
+  console.log('DEV MODE')
+  let static = express.static('../client')
+  app.use((req, res, next) => {
+    if (!req.path.startsWith('/api/')) {
+      return static(req, res, next)
+    }
+    next()
+  })
+}
+
 app.use(jwt({
   secret: jwks.expressJwtSecret({
     cache: true,
