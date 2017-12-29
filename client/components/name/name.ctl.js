@@ -8,7 +8,7 @@
   function NameController($scope, $http, $timeout, $mdSidenav, $state) {
     var vm = this;
 
-    if ($scope.isAuthenticated) {
+    if (!$scope.isAuthenticated) {
       return $state.go('login')
     }
 
