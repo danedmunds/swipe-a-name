@@ -7,7 +7,7 @@ const NameModel = new Name().createModel()
 const readline = require('readline');
 const fs = require('fs');
 
-mongoose.connect('mongodb://localhost/swipe-a-name')
+mongoose.connect('mongodb://localhost/swipe')
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', async () => {

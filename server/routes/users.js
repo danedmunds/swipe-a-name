@@ -29,7 +29,7 @@ class UsersRouter {
 
     let user
     try {
-      user = new UserModel({
+      user = await new UserModel({
         userId: id.sub,
         email: id.email
       }).save()
@@ -41,7 +41,7 @@ class UsersRouter {
     }
 
     try {
-      await NameModel.prepareRatingTodoTableForUser(user.id)
+      await NameModel.prepareRatingTodoTableForUser(user._id)
     } catch (err) {
       console.log(err)
       return res.status(500).send({

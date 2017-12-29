@@ -3,6 +3,8 @@
 ls -1 raw | xargs -I '{}' ./blah.sh raw/{}
 
 === MONGO ===
+mongoimport --db swipe --collection names --file names.csv --type csv --fields name,sex 
+
 mongoexport --db dan --collection totals --type csv --out totals.csv --fields _id.name,_id.sex,total
 mongoimport --fields year,name,sex,count --file all.csv --collection names --db dan --type csv
 
