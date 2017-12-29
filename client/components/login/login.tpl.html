@@ -1,0 +1,24 @@
+<md-content>
+  <div
+    layout="column"
+    layout-align="center center"
+    style="margin-top: 50px">
+    <div
+      layout="column"
+      layout-align="center center"
+      ng-click="vm.authService.login()">
+      <div id="loginLock">
+        <i id="locked"
+          class="material-icons"
+          md-colors="{color:'primary'}"
+          style="font-size: 96px">lock</i>
+        <i id="unlocked"
+          class="material-icons"
+          md-colors="{color:'primary'}"
+          style="font-size: 96px">lock_open</i>
+      </div>
+      <p>You must be logged in.</p>
+      <p style="margin-top: 0px;">Click to log in.</p>
+    </div>
+  </div>
+</md-content>

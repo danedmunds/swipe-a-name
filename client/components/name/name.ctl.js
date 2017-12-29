@@ -5,9 +5,12 @@
     .module('SwypeANameApp')
     .controller('NameController', NameController);
 
-  function NameController($scope, authService, $http, $timeout, $mdSidenav) {
+  function NameController($scope, $http, $timeout, $mdSidenav, $state) {
     var vm = this;
-    vm.authService = authService;
+
+    if ($scope.isAuthenticated) {
+      return $state.go('login')
+    }
 
     $scope.toggleLeft = buildToggler('left');
 

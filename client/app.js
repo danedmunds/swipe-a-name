@@ -19,6 +19,12 @@
         controller: 'NameController',
         templateUrl: 'components/name/name.tpl.html',
         controllerAs: 'vm'
+      })
+      .state('login', {
+        url: '/login',
+        controller: 'LoginController',
+        templateUrl: 'components/login/login.tpl.html',
+        controllerAs: 'vm'
       });
 
     lockProvider.init({
