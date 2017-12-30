@@ -24,7 +24,8 @@ app.use(expressWinston.logger({
     })
   ],
   msg: "HTTP {{req.method}} {{req.url}}",
-  ignoreRoute: function (req, res) { return false; }
+  ignoreRoute: function (req, res) { return false; },
+  requestWhitelist: [ 'path' ]
 }));
 
 // In dev mode host the client at the root
