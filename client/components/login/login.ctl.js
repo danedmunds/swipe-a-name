@@ -12,5 +12,9 @@
     if ($scope.isAuthenticated) {
       return $state.go('name')
     }
+
+    $scope.$on('authentication_success', function () {
+      $state.go('name')
+    });
   }
 })();

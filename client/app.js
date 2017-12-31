@@ -26,6 +26,7 @@
         templateUrl: 'components/login/login.tpl.html',
         controllerAs: 'vm'
       });
+    $urlRouterProvider.otherwise('/name');
 
     lockProvider.init({
       clientID: 'J45whj0LyPxZv36xXBjDWVitpdjqclB5',
@@ -45,14 +46,13 @@
       whiteListedDomains: [
         'localhost', 'swipe.danedmunds.ca'
       ],
+      unauthenticatedRedirector: ['$state', function($state) {
+        $state.go('login');
+      }],
       tokenGetter: function () {
         return localStorage.getItem('id_token');
       }
     });
     $httpProvider.interceptors.push('jwtInterceptor');
-
-    $urlRouterProvider.otherwise('/name');
   }
-
-
 })();

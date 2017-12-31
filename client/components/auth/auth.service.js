@@ -6,7 +6,7 @@
     .module('SwypeANameApp')
     .service('authService', authService);
 
-  function authService(lock, authManager) {
+  function authService(lock, authManager, $rootScope) {
 
     function login() {
       lock.show();
@@ -21,6 +21,7 @@
       lock.on('authenticated', function (authResult) {
         localStorage.setItem('id_token', authResult.idToken);
         authManager.authenticate();
+        $rootScope.$broadcast('authentication_success');
       });
 
       lock.on('authorization_error', function (err) {
