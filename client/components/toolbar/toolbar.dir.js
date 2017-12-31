@@ -14,8 +14,11 @@
     }
   }
 
-  function toolbarController($scope, $window, $rootScope, authService) {
+  function toolbarController($scope, $window, $rootScope, authService, $state) {
     var vm = this;
-    vm.authService = authService;
+    vm.logout = function () {
+      authService.logout();
+      $state.go('login');
+    }
   }
 })();
