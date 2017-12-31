@@ -1,0 +1,24 @@
+<md-content>
+  <md-toolbar class="md-primary md-hue-1">
+      <div class="md-toolbar-tools">
+        <i class="material-icons">{{ a === 'liked' ? 'favorite' : 'delete'}}</i>&nbsp;My {{a}} names
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="back" ui-sref="name">
+          <md-icon style="vertical-align:middle">clear</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-content>
+      <md-list ng-cloak>
+        <md-list-item
+        class="secondary-button-padding"
+        ng-repeat="name in names">
+          <div ng-class="name.sex === 'M' ? 'boy-list-item' : 'girl-list-item'">
+            <md-icon style="margin-top: 2px; color: white">
+              <i class="material-icons">child_care</i>
+            </md-icon>
+          </div>
+          <p style="padding-left: 15px">{{name.name}}</p>
+        </md-list-item>
+      </md-list>
+</md-content>

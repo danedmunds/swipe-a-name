@@ -20,6 +20,15 @@
         templateUrl: 'components/name/name.tpl.html',
         controllerAs: 'vm'
       })
+      .state('mynames', {
+        url: '/mynames',
+        controller: 'MyNamesController',
+        templateUrl: 'components/mynames/mynames.tpl.html',
+        controllerAs: 'vm',
+        params: {
+          a: 'liked'
+        }
+      })
       .state('login', {
         url: '/login',
         controller: 'LoginController',

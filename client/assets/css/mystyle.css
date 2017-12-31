@@ -6,6 +6,30 @@
 	background:linear-gradient(to bottom, #ff8cb1, #f92862)
 }
 
+.boy-list-item {
+  background: #40b3ff;
+
+  -moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+  text-align: center;
+  position: relative;
+  height: 30px;
+  width: 30px;
+}
+
+.girl-list-item {
+  background: #ff8cb1;
+  
+  -moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+  text-align: center;
+  position: relative;
+  height: 30px;
+  width: 30px;
+}
+
 div#loginLock i#locked {
   display: inline;
 }
