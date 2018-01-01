@@ -12,14 +12,25 @@
     <md-virtual-repeat-container id="vertical-container" flex style="height: 100%">
       <md-list-item
         class="repeated-item"
-        md-virtual-repeat="name in vm.dynamicItems"
+        md-virtual-repeat="rating in vm.dynamicItems"
         md-on-demand>
-        <div ng-class="name.sex === 'M' ? 'boy-list-item' : 'girl-list-item'">
+        <div ng-class="rating.sex === 'M' ? 'boy-list-item' : 'girl-list-item'">
           <md-icon style="margin-top: 2px; color: white">
             <i class="material-icons">child_care</i>
           </md-icon>
         </div>
-        <p style="padding-left: 15px">{{name.name}}</p>
+        <p style="padding-left: 15px">{{rating.name}}</p>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm.switchRating(rating)">
+          <md-icon>
+            <i class="material-icons">{{ a === 'liked' ? 'delete' : 'favorite'}}</i>
+          </md-icon>
+        </md-button>
+        <md-button class="md-icon-button" aria-label="remove" ng-click="vm.removeRating(rating)">
+          <md-icon>
+            <i class="material-icons">clear</i>
+          </md-icon>
+        </md-button>
       </md-list-item>
     </md-virtual-repeat-container>
   </md-list>

@@ -15,13 +15,25 @@
       return $state.go('login')
     }
 
-    function getRatings () {
-      $http.get(`/api/v1/ratings?rating=${a === 'liked' ? 'keep' : 'toss'}`)
+    this.removeRating = function (rating) {
+      $http.delete(`/api/v1/ratings/${rating.id}`)
         .then(function success (response) {
-          $scope.names = response.data.data
+          console.log(response.data)
         }, function failure (err) {
           console.log(err)
         })
+    }
+
+    this.switchRating = function (rating) {
+      $http.post(`/api/v1/ratings`, {
+        nameId: rating.nameId,
+        userId: rating.userId,
+        rating: rating.rating === 'keep' ? 'toss' : 'keep'
+      }).then(function success (response) {
+        console.log(response.data)
+      }, function failure (err) {
+        console.log(err)
+      })
     }
 
     var DynamicItems = function() {

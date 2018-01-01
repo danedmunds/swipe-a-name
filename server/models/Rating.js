@@ -15,13 +15,16 @@ class Rating {
   createSchema() {
     let schema = new Schema({
       nameId: { type: Schema.Types.ObjectId, ref: 'Name' },
-      userId: { type: Schema.Types.ObjectId, ref: 'User' },
+      userId: { type: Schema.Types.ObjectId, ref: 'User', index: true },
       date: { type: Date },
       name: { type: String },
       sex: { type: String, enum: ['M', 'F'] },
       rating: { type: String, enum: ['keep', 'toss'] }
     })
     schema.index({nameId: 1, userId: 1}, { unique: true })
+    schema.index({userId: true, date: -1})
+    schema.index({userId: true, sex: true})
+    schema.index({userId: true, rating: true})
 
     schema.set('toJSON', {
       transform: doc => {

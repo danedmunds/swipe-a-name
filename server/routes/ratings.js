@@ -19,6 +19,8 @@ class RatingsRouter {
     this.router.route('/')
       .get(this.getRatings.bind(this))
       .post(this.addRating.bind(this))
+    this.router.route('/:id')
+      .delete(this.deleteRating.bind(this))
   }
 
   async addRating (req, res, next) {
@@ -100,7 +102,7 @@ class RatingsRouter {
     }, _.pick(req.query, 'sex', 'rating'))
 
 
-    RatingModel.paginate(query, {offset, limit, lean: true}, (err, result) => {
+    RatingModel.paginate(query, {sort: '-date', offset, limit, lean: true}, (err, result) => {
       if (err) {
         return next(err)
       }
@@ -128,10 +130,19 @@ class RatingsRouter {
     })
   }
 
+  async deleteRating (req, res, next) {
+    console.log(ObjectId(req.params.id), req.user.id)
+    await RatingModel.remove({
+      _id: ObjectId(req.params.id),
+      userId: ObjectId(req.user.id)
+    })
+    res.sendStatus(204)
+  }
+
   _serialize (item) {
     item = item.toObject ? item.toObject() : item
     let toReturn = _.cloneDeep(item)
-    toReturn.id = toReturn.nameId || toReturn._id
+    toReturn.id = toReturn._id
     return _.pick(toReturn, Rating.PUBLIC_PROPERTIES)
   }
 }
