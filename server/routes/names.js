@@ -86,6 +86,9 @@ class NamesRouter {
           prev: `${linkStart}offset=${offset - limit >= 0 ? offset - limit  : 0}&limit=${limit}`,
           first: `${linkStart}offset=0&limit=${limit}`,
           last: `${linkStart}offset=${Math.floor(result.total / limit) * limit}&limit=${limit}`
+        },
+        meta: {
+          length: result.total
         }
       })
     })

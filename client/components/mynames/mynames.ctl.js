@@ -24,6 +24,43 @@
         })
     }
 
-    getRatings();
+    var DynamicItems = function() {
+      this.loadedPages = {};
+      this.numItems = 0;
+      this.PAGE_SIZE = 50;
+
+      this.fetchPage_(0);
+    };
+
+    // Required.
+    DynamicItems.prototype.getItemAtIndex = function(index) {
+      var pageNumber = Math.floor(index / this.PAGE_SIZE);
+      var page = this.loadedPages[pageNumber];
+
+      if (page) {
+        return page[index % this.PAGE_SIZE];
+      } else if (page !== null) {
+        this.fetchPage_(pageNumber);
+      }
+    };
+
+    // Required.
+    DynamicItems.prototype.getLength = function() {
+      return this.numItems;
+    };
+
+    DynamicItems.prototype.fetchPage_ = function(pageNumber) {
+      // Set the page to null so we know it is already being fetched.
+      this.loadedPages[pageNumber] = null;
+      $http.get(`/api/v1/ratings?rating=${a === 'liked' ? 'keep' : 'toss'}&offset=${this.PAGE_SIZE * pageNumber}&limit=${this.PAGE_SIZE}`)
+      .then(angular.bind(this, function success (response) {
+        this.numItems = response.data.meta.length
+        this.loadedPages[pageNumber] = response.data.data
+      }), function failure (err) {
+        console.log(err)
+      })
+    };
+
+    this.dynamicItems = new DynamicItems();
   }
 })();
