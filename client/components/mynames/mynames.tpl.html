@@ -13,7 +13,8 @@
       <md-list-item
         class="repeated-item"
         md-virtual-repeat="rating in vm.dynamicItems"
-        md-on-demand>
+        md-on-demand
+        ng-hide="!!rating.removed">
         <div ng-class="rating.sex === 'M' ? 'boy-list-item' : 'girl-list-item'">
           <md-icon style="margin-top: 2px; color: white">
             <i class="material-icons">child_care</i>

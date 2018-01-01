@@ -19,6 +19,7 @@
       $http.delete(`/api/v1/ratings/${rating.id}`)
         .then(function success (response) {
           console.log(response.data)
+          rating.removed = true
         }, function failure (err) {
           console.log(err)
         })
@@ -31,6 +32,7 @@
         rating: rating.rating === 'keep' ? 'toss' : 'keep'
       }).then(function success (response) {
         console.log(response.data)
+        rating.removed = true
       }, function failure (err) {
         console.log(err)
       })
