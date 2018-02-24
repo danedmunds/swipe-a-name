@@ -56,7 +56,7 @@ class NamesRouter {
     }
 
     if (req.query.sample === 'true') {
-      return model.randomSample(limit, (err, result) => {
+      return model.randomSample(limit, query, (err, result) => {
         if (err) {
           return next(err)
         }

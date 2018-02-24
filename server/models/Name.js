@@ -39,10 +39,13 @@ class Name {
        ]).exec()
     }
 
-    schema.statics.randomSample = function (limit, next) {
-      return this.aggregate(
-        { $sample: { size: limit } }
-     ).exec(next)
+    schema.statics.randomSample = function (limit, query, next) {
+      let pipeline = []
+      if (!_.isEmpty(query)) {
+        pipeline.push({ $match: query })
+      }
+      pipeline.push({ $sample: { size: limit } })
+      return this.aggregate(pipeline).exec(next)
     }
 
     schema.plugin(mongoosePaginate)
