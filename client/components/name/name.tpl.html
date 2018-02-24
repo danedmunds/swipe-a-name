@@ -20,15 +20,16 @@
                 <md-list-item>
                   <nz-toggle
                     tri-toggle
-                    ng-model="sexPreference"
-                    val-false="'Boy Names'"
+                    ng-model="preferences.sex"
+                    on-toggle="savePreferences()"
+                    val-false="'M'"
                     color-false="'#40b3ff'"
-                    val-null="'Boy and Girl Names'"
+                    val-null="''"
                     color-null="'#cccccc'"
                     color-true="'#ff8cb1'"
-                    val-true="'Girl Names'">
+                    val-true="'F'">
                   </nz-toggle>
-                  &nbsp;&nbsp;{{sexPreference}}
+                  &nbsp;&nbsp;{{ preferences.sex === "M" ? "Boy Names" : preferences.sex === "F" ? "Girl Names" : "Boy and Girl Names" }}
                 </md-list-item>
               
                 <md-divider></md-divider>
