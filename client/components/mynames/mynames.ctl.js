@@ -5,7 +5,7 @@
     .module('SwypeANameApp')
     .controller('MyNamesController', MyNamesController);
 
-  function MyNamesController($scope, $http, $state, $stateParams) {
+  function MyNamesController($scope, $http, $state, $stateParams, preferencesService) {
     var vm = this;
 
     var a = $stateParams.a
@@ -14,6 +14,19 @@
     if (!$scope.isAuthenticated) {
       return $state.go('login')
     }
+
+    var $this = this
+    $scope.preferences = preferencesService.get('mynames') || {}
+    var preferences
+    $scope.$on("$mdMenuOpen", function() {
+      preferences = _.cloneDeep($scope.preferences)
+    });
+    $scope.$on("$mdMenuClose", function() {
+      if (!_.isEqual($scope.preferences, preferences)) {
+        preferencesService.set('mynames', $scope.preferences)
+        $this.dynamicItems = new DynamicItems();
+      }  
+    });
 
     this.removeRating = function (rating) {
       $http.delete(`/api/v1/ratings/${rating.id}`)
@@ -66,7 +79,14 @@
     DynamicItems.prototype.fetchPage_ = function(pageNumber) {
       // Set the page to null so we know it is already being fetched.
       this.loadedPages[pageNumber] = null;
-      $http.get(`/api/v1/ratings?rating=${a === 'liked' ? 'keep' : 'toss'}&offset=${this.PAGE_SIZE * pageNumber}&limit=${this.PAGE_SIZE}`)
+      var rating = `rating=${a === 'liked' ? 'keep' : 'toss'}`
+      var page = `offset=${this.PAGE_SIZE * pageNumber}&limit=${this.PAGE_SIZE}`
+      var sex = ''
+      if ($scope.preferences.sex) {
+        sex = `&sex=${$scope.preferences.sex}`
+      }
+      
+      $http.get(`/api/v1/ratings?${rating}&${page}${sex}`)
       .then(angular.bind(this, function success (response) {
         this.numItems = response.data.meta.length
         this.loadedPages[pageNumber] = response.data.data

@@ -5,7 +5,7 @@
     .module('SwypeANameApp')
     .controller('NameController', NameController);
 
-  function NameController($scope, $http, $timeout, $mdSidenav, $state) {
+  function NameController($scope, $http, $timeout, $mdSidenav, $state, preferencesService) {
     var vm = this;
 
     if (!$scope.isAuthenticated) {
@@ -14,6 +14,7 @@
 
     var names = [];
 
+    $scope.preferences = preferencesService.get('names') || {}
     $mdSidenav('left', true).then(function(leftPanel) {
       var preferences
       $scope.toggleLeft = function () {
@@ -24,12 +25,12 @@
       }
       leftPanel.onClose(function () {
         if (!_.isEqual(preferences, $scope.preferences)) {
+          preferencesService.set('names', $scope.preferences)
           getNewNamesBatch()
         }
       });
     });
 
-    loadPreferences();
     getNewNamesBatch();
 
     $scope.toss = function() {
@@ -41,8 +42,6 @@
       sendRating($scope.current, 'keep');
       $scope.current = getNext()
     };
-
-    $scope.savePreferences = savePreferences;
 
     function getNewNamesBatch () {
       $scope.current = undefined;
@@ -83,14 +82,6 @@
       }).catch(function error () {
 
       })
-    }
-
-    function loadPreferences () {
-      $scope.preferences = JSON.parse(localStorage.getItem('preferences') || '{}');
-    }
-
-    function savePreferences () {
-      localStorage.setItem('preferences', JSON.stringify($scope.preferences));
     }
   }
 })();

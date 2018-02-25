@@ -1,8 +1,29 @@
-<md-content layout="column" ng-controller="MyNamesController as ctrl" ng-cloak style="height: 100%">
+<md-content layout="column" ng-cloak style="height: 100%">
   <md-toolbar class="md-primary md-hue-1">
     <div class="md-toolbar-tools">
       <i class="material-icons">{{ a === 'liked' ? 'favorite' : 'delete'}}</i>&nbsp;My {{a}} names
       <span flex></span>
+      <md-menu md-component-id="menu" md-position-mode="target-left target" md-offset="0 42">
+        <md-button class="md-icon-button" ng-click="$mdMenu.open($event)">
+          <md-icon><i class="material-icons">menu</i></md-icon>
+        </md-button>
+        <md-menu-content width="4">
+          <md-subheader class="md-no-sticky" style="background-color: white">Filter</md-subheader>
+          <md-menu-item>        
+            <nz-toggle
+              tri-toggle
+              ng-model="preferences.sex"
+              val-false="'M'"
+              color-false="'#40b3ff'"
+              val-null="''"
+              color-null="'#cccccc'"
+              color-true="'#ff8cb1'"
+              val-true="'F'">
+            </nz-toggle>
+            &nbsp;&nbsp;{{ preferences.sex === "M" ? "Boy Names" : preferences.sex === "F" ? "Girl Names" : "Boy and Girl Names" }}
+          </md-menu-item>   
+        </md-menu-content>
+      </md-menu>
       <md-button class="md-icon-button" aria-label="back" ui-sref="name">
         <md-icon style="vertical-align:middle">clear</md-icon>
       </md-button>
