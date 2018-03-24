@@ -19,7 +19,7 @@
   "dependencies": {
     "angular-jwt": "^0.1.9",
     "angular-lock": "^2.0.3",
-    "auth0-js": "^8.12.1",
+    "auth0-js": "^8.12.3",
     "jwks-rsa": "^1.2.1"
   }
 }
