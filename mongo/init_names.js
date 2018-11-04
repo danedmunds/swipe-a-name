@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const Name = require('../models/Name')
+const Name = require('../server/models/Name')
 const NameModel = new Name().createModel()
 
 const readline = require('readline');
@@ -10,8 +10,8 @@ let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', async () => {
   await Promise.all([
-    ingest('../../names/male.txt', 'M'),
-    ingest('../../names/female.txt', 'F')
+    ingest('../names/male.txt', 'M'),
+    ingest('../names/female.txt', 'F')
   ])
   mongoose.connection.close()
 })

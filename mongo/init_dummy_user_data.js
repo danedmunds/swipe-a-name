@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-const User = require('../models/User')
+const User = require('../server/models/User')
 const UserModel = new User().createModel()
-const Name = require('../models/Name')
+const Name = require('../server/models/Name')
 const NameModel = new Name().createModel()
 
 const readline = require('readline');

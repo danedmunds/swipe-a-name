@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
-const Rating = require('../models/Rating')
+const Rating = require('../server/models/Rating')
 const RatingModel = new Rating().createModel()
-const User = require('../models/User')
+const User = require('../models/server/User')
 const UserModel = new User().createModel()
-const Name = require('../models/Name')
+const Name = require('../models/server/Name')
 const NameModel = new Name().createModel()
 
 const readline = require('readline');
