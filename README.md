@@ -1,6 +1,14 @@
 # swype-a-name
 
+https://swipe.danedmunds.ca
+
 Names from https://www.ssa.gov/oact/babynames/limits.html
+
+A Tinder clone for choosing baby names! Swipe right to like a name and left to dislike a name
+
+<img src="images/login.png" alt="preview" height="500"/><img src="images/login-google.png" alt="preview" height="500"/>
+<img src="images/swipe.png" alt="preview" height="500"/><img src="images/info.png" alt="preview" height="500"/>
+<img src="images/profile.png" alt="preview" height="500"/><img src="images/liked.png" alt="preview" height="500"/>
 
 ## Running
 
